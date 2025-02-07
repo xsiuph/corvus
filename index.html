@@ -1,3 +1,183 @@
-<div>
-  Hello World
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artemis IDE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+      body {
+          background: linear-gradient(152deg, #1a1b26 0%, #25273c 100%);
+          min-height: 100vh;
+          margin: 0;
+          font-family: 'JetBrains Mono', monospace;
+          color: #e5e9f0;
+      }
+
+      .nav-container {
+          background: rgba(26, 27, 38, 0.98);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 1rem 2rem;
+      }
+
+      .editor-container {
+          background: rgba(23, 24, 35, 0.95);
+          backdrop-filter: blur(24px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          width: 780px;
+          margin: 2rem auto;
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      }
+
+      .gradient-btn {
+          background: linear-gradient(135deg, rgba(79, 70, 229, 0.9) 0%, rgba(147, 51, 234, 0.9) 100%);
+          padding: 1rem 2.5rem;
+          border-radius: 8px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          position: relative;
+          overflow: hidden;
+      }
+
+      .gradient-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 32px rgba(79, 70, 229, 0.25);
+      }
+
+      .gradient-btn::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(45deg,
+              rgba(255,255,255,0) 20%,
+              rgba(255,255,255,0.1) 50%,
+              rgba(255,255,255,0) 80%
+          );
+          transform: rotate(45deg);
+          transition: all 0.5s ease;
+      }
+
+      .gradient-btn:hover::after {
+          left: 150%;
+      }
+
+      .code-highlight {
+          background: rgba(79, 70, 229, 0.15);
+          border-radius: 4px;
+          padding: 0 4px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="nav-container flex items-center justify-between">
+      <div class="flex items-center space-x-8">
+        <div class="flex items-center">
+          <svg class="mr-2 h-6 w-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-xl font-semibold tracking-tight text-indigo-400">ARTEMIS IDE</span>
+        </div>
+        <nav class="flex space-x-6 text-sm font-medium text-slate-300">
+          <a href="#" class="transition-colors hover:text-indigo-300">Documentation</a>
+          <a href="#" class="transition-colors hover:text-indigo-300">Plugins</a>
+          <a href="#" class="transition-colors hover:text-indigo-300">Blog</a>
+          <a href="#" class="transition-colors hover:text-indigo-300">Support</a>
+        </nav>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button class="text-sm font-medium text-slate-300 transition-colors hover:text-indigo-300">Download</button>
+        <div class="h-6 w-px bg-gray-700"></div>
+        <button class="text-sm font-medium text-slate-300 transition-colors hover:text-indigo-300">Account</button>
+      </div>
+    </div>
+
+    <div class="editor-container">
+      <div class="flex items-center justify-between border-b border-gray-800 p-4">
+        <div class="flex items-center space-x-3">
+          <div class="flex space-x-1.5">
+            <div class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></div>
+            <div class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></div>
+            <div class="h-2.5 w-2.5 rounded-full bg-[#28c940]"></div>
+          </div>
+          <div class="text-sm font-medium text-slate-400">script.lua • Artemis IDE</div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="text-xs text-slate-500">Lua 5.4.6</div>
+          <div class="h-4 w-px bg-gray-700"></div>
+          <button class="text-slate-400 transition-colors hover:text-indigo-300">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <div class="flex font-mono text-sm leading-relaxed">
+          <div class="w-8 pr-4 text-right font-medium text-slate-500 select-none">1<br />2<br />3<br />4<br />5<br />6<br />7<br />8</div>
+          <div class="flex-1 space-y-2 text-slate-200">
+            <div>
+              <span class="font-medium text-purple-400">local</span>
+              <span class="text-emerald-400">ai</span>
+              <span class="text-slate-500">=</span>
+              <span class="text-blue-400">require</span>
+              <span class="text-green-400">("artemis-ai")</span>
+            </div>
+            <div class="h-4"></div>
+            <div>
+              <span class="text-purple-400">function</span>
+              <span class="text-emerald-400">analyze_code</span>
+              <span class="text-slate-500">(</span>
+              <span class="text-blue-400">filename</span>
+              <span class="text-slate-500">)</span>
+            </div>
+            <div class="pl-4">
+              <span class="text-purple-400">local</span>
+              <span class="text-emerald-400">suggestions</span>
+              <span class="text-slate-500">=</span>
+              <span class="text-emerald-400">ai</span>
+              <span class="text-slate-500">.</span>
+              <span class="text-blue-400">review</span>
+              <span class="text-slate-500">(</span>
+              <span class="text-blue-400">filename</span>
+              <span class="text-slate-500">)</span>
+            </div>
+            <div class="pl-4">
+              <span class="text-purple-400">return</span>
+              <span class="text-emerald-400">suggestions</span>
+              <span class="text-slate-500">.</span>
+              <span class="text-blue-400">optimize</span>
+              <span class="text-slate-500">()</span>
+            </div>
+            <div><span class="text-purple-400">end</span></div>
+            <div class="h-4"></div>
+            <div class="text-slate-500 italic">-- AI-powered code analysis</div>
+            <div>
+              <span class="text-emerald-400">analyze_code</span>
+              <span class="text-slate-500">(</span>
+              <span class="text-green-400">"main.lua"</span>
+              <span class="text-slate-500">)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <button class="gradient-btn text-sm font-medium tracking-wide text-white">Start Free Trial • Windows, macOS, Linux</button>
+      <p class="mt-4 text-xs text-slate-400">
+        Trusted by teams at
+        <span class="text-indigo-300">Vercel</span>, <span class="text-indigo-300">OpenAI</span>, and
+        <span class="text-indigo-300">Figma</span>
+      </p>
+    </div>
+  </body>
+</html>
